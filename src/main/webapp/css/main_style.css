@@ -1,0 +1,159 @@
+/* 通用样式 */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+button {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff6659;
+}
+
+.main {
+    padding: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+}
+
+p {
+    margin: 0 0 10px 0;
+}
+
+form {
+    display: flex;
+    margin: 20px 0;
+}
+
+input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #46a049;
+}
+
+#productList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#productList > div {
+    width: 25%;
+    padding: 10px;
+}
+
+#productList h3 {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+}
+
+#productList p {
+    margin: 0 0 10px 0;
+}
+
+#productList form {
+    display: flex;
+    align-items: center;
+}
+
+#productList input[type="hidden"] {
+    display: none;
+}
+
+#productList button[type="submit"] {
+    background-color: #008CBA;
+}
+
+#productList button[type="submit"]:hover {
+    background-color: #0b7dda;
+}
+
+/* 网站风格 */
+header {
+    height: 60px;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+button {
+    padding: 12px 24px;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+h2 {
+    font-size: 28px;
+}
+
+input[type="text"] {
+    border: 2px solid #ccc;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #f44336;
+}
+
+#productList > div {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    transition: border-color 0.3s;
+}
+
+#productList > div:hover {
+    border-color: #f44336;
+}
