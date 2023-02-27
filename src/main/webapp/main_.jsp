@@ -34,7 +34,7 @@
 </header>
 <c:if test="${sessionScope.user.status == 0}">
     <div class="main">
-        <h2>当前界面为管理员界面！！！</h2>
+        <h2>当前界面为管理员界面！！！！！</h2>
     </div>
 </c:if>
 <div class="main">
