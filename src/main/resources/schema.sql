@@ -1,0 +1,32 @@
+DROP TABLE IF EXISTS cart;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    email VARCHAR(100),
+    status INT DEFAULT 1
+);
+
+CREATE TABLE product (
+    PRODUCT_ID INT AUTO_INCREMENT PRIMARY KEY,
+    PRODUCT_NAME VARCHAR(100) NOT NULL,
+    PRODUCT_DESCRIPTION VARCHAR(500),
+    PRODUCT_PRICE INT DEFAULT 0,
+    PRODUCT_STOCK INT DEFAULT 0
+);
+
+CREATE TABLE cart (
+    cart_id INT AUTO_INCREMENT PRIMARY KEY,
+    cart_product_id INT NOT NULL,
+    cart_product_name VARCHAR(100),
+    cart_product_price INT DEFAULT 0,
+    cart_product_nums INT DEFAULT 1,
+    cart_product_stock INT DEFAULT 0,
+    cart_user_id INT NOT NULL,
+    cart_valid INT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
