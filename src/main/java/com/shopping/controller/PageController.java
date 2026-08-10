@@ -47,6 +47,13 @@ public class PageController {
         fillSessionModel(session, model);
         model.addAttribute("products", productService.search(keyword));
         model.addAttribute("keyword", keyword);
+        User user = SessionKeys.currentUser(session);
+        if (user != null) {
+            model.addAttribute("cartCount", cartService.list(user.getId()).stream()
+                    .mapToInt(c -> c.getCartProductNums()).sum());
+        } else {
+            model.addAttribute("cartCount", 0);
+        }
         return "index";
     }
 
@@ -55,7 +62,11 @@ public class PageController {
         fillSessionModel(session, model);
         User user = SessionKeys.currentUser(session);
         if (user != null) {
-            model.addAttribute("cartList", cartService.list(user.getId()));
+            java.util.List<com.shopping.entity.Cart> list = cartService.list(user.getId());
+            model.addAttribute("cartList", list);
+            model.addAttribute("cartCount", list.stream().mapToInt(c -> c.getCartProductNums()).sum());
+            model.addAttribute("totalPrice", list.stream()
+                    .mapToInt(c -> c.getCartProductPrice() * c.getCartProductNums()).sum());
         }
         return "cart";
     }

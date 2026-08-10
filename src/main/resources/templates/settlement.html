@@ -3,36 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>结算</title>
+    <title>确认订单 - 知选商城</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
 </head>
-<body class="bg-light">
-<div class="container py-4" style="max-width: 720px;">
-    <h1 class="h4 mb-4">结算</h1>
-    <div class="card mb-3" th:each="cart : ${cartList}">
-        <div class="card-body d-flex justify-content-between">
-            <div>
-                <div class="fw-bold" th:text="${cart.cartProductName}"></div>
-                <div class="text-muted small">
-                    价格：<span th:text="${cart.cartProductPrice}"></span>　已选数量：<span th:text="${cart.cartProductNums}"></span>
-                </div>
-            </div>
-            <div class="align-self-center" th:text="${cart.cartProductPrice * cart.cartProductNums}"></div>
+<body>
+<nav class="shop-nav">
+    <div class="container d-flex align-items-center justify-content-between">
+        <a class="navbar-brand" href="/">知选商城</a>
+        <div class="d-flex align-items-center gap-3">
+            <a class="btn-shop-ghost" th:href="@{/cart}">返回购物车</a>
         </div>
     </div>
-    <h3>商品总价格：<span th:text="${totalPrice}"></span></h3>
-    <div class="d-flex gap-2 mt-3">
-        <a class="btn btn-secondary" th:href="@{/}">返回主页</a>
-        <a class="btn btn-outline-secondary" th:href="@{/cart}">返回购物车</a>
-        <button class="btn btn-primary" onclick="pay()">点击购买</button>
+</nav>
+<div class="container py-4" style="max-width: 720px;">
+    <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 20px;">确认订单</h3>
+    <div class="shop-panel">
+        <div class="shop-cart-row" th:each="cart : ${cartList}">
+            <div>
+                <div style="font-weight: 600;" th:text="${cart.cartProductName}"></div>
+                <div style="color: var(--shop-muted); font-size: 13px;"
+                     th:text="'单价 ¥' + ${cart.cartProductPrice} + ' × ' + ${cart.cartProductNums}"></div>
+            </div>
+            <span style="font-weight: 600;" th:text="'¥' + ${cart.cartProductPrice * cart.cartProductNums}"></span>
+        </div>
+        <div style="padding-top: 16px; border-top: 1px solid var(--shop-border);"
+             th:if="${cartList == null or #lists.isEmpty(cartList)}">
+            <div class="shop-empty">购物车为空</div>
+        </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-between mt-4">
+        <div>
+            <div style="color: var(--shop-muted); font-size: 13px;">应付金额</div>
+            <div class="shop-total" style="font-size: 26px;" th:text="'¥' + ${totalPrice}"></div>
+        </div>
+        <button class="btn-shop-cta" style="font-size: 15px; padding: 10px 32px;" onclick="pay()">确认购买</button>
     </div>
 </div>
+<div class="shop-toast" id="shopToast"></div>
 <script>
+    let toastTimer;
+    function showToast(text) {
+        const el = document.getElementById('shopToast');
+        el.textContent = text;
+        el.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 2000);
+    }
     async function pay() {
         const resp = await fetch('/api/cart/pay', { method: 'POST' });
         const result = await resp.json();
-        alert(result.message || '购买失败');
-        if (result.code === 1) location.href = '/';
+        if (result.code === 1) {
+            showToast('购买成功 🎉 已发送邮件');
+            setTimeout(() => location.href = '/', 900);
+        } else {
+            showToast(result.message || '购买失败');
+        }
     }
 </script>
 </body>
